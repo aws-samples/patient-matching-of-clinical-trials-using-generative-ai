@@ -1,8 +1,8 @@
-# Patient Matching of Clinical Trials using Generative AI
+# Patient Matching of Clinical Trials Using Generative AI
 
 This is a demo of how to leverage Generative AI to perform cohort identification by matching patients to clinical trials.
 
-Clinical Trials Gen AI workshop.ipynb contains a jupyter notebook file which walksthrough step by step on how to use Amazon Bedrock and Large Language Models (LLM) to solve a real-world problem described in the User persona below.
+Clinical Trials Gen AI workshop Part 1.ipynb contains a Jupyter notebook file that walks through step-by-step how to use Amazon Bedrock and Large Language Models (LLM) to solve a real-world problem described in the User persona below. Clinical Trials Gen AI workshop Part 2.ipynb is a continuation of Part 1, where we will move the use-case closer to production by focusing on evaluation logic, chaining LLMs and cost analysis.
 
 ### User persona
 
@@ -10,21 +10,21 @@ AnyCompany is a healthcare startup that provides insights based on patient histo
 
 As a data scientist recently hired by AnyCompany, you got pulled into a tiger team that has the goal of (i) validating if this project is feasible, (ii) building a working proof of concept.
 
-If your assignment succeeds, this feature will be added to AnyCompany's next big release that is coming out soon.
+If your assignment succeeds, this feature will be added to AnyCompany's next big release, which is coming out soon.
 
-The clock is ticking, so let's starting building!
+The clock is ticking, so let's start building!
 
 ## Prerequisites
 
-The notebook requires mutiple resources to be enabled or created.
+The notebook requires multiple resources to be enabled or created.
 
-- Ensure [access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) to Anthropric models and Mistral Models.
+- Ensure [access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) to Anthropic models.
 - Ensure proper IAM permission to [invoke models](https://docs.aws.amazon.com/step-functions/latest/dg/bedrock-iam.html#bedrock-policy-invokemodel-full-access) and [subscribe](https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html#security_iam_id-based-policy-examples-subscription) to 3rd party models.
 - Creation of [Amazon Healthlake](https://docs.aws.amazon.com/healthlake/latest/devguide/getting-started.html#setting-up-iam-amazon-healthlake) with Synthea data enabled and FHIR API permission enabled - (**Optional**)
 
 ### Environment
 
-- Notebook Envinronment requires python version >= 3.10.0
+- Notebook Environment requires Python version >= 3.10.0
 - Compute resource similar to Sagemaker Studio's ml.t3.medium instance 2vCPU and 4Gib Memory
 - Refer to requirements.txt for package requirements
 

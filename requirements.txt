@@ -1,8 +1,8 @@
 appnope==0.1.4
 asttokens==2.4.1
 awscrt==0.20.6
-boto3==1.34.74
-botocore==1.34.74
+boto3==1.34.80
+botocore==1.34.80
 certifi==2024.2.2
 charset-normalizer==3.3.2
 comm==0.2.2
@@ -21,7 +21,7 @@ jupyterlab_widgets==3.0.10
 matplotlib-inline==0.1.6
 nest-asyncio==1.6.0
 packaging==24.0
-parso==0.8.3
+parso==0.8.4
 pexpect==4.9.0
 platformdirs==4.2.0
 prompt-toolkit==3.0.43

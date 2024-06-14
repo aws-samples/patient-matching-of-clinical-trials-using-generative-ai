@@ -1,10 +1,7 @@
-"""Module providing a JSON Functionality"""
 import json
-import locale
 
 
 class PrettyPrintModel():
-    """Class representing a person"""
 
     def __init__(self, response, model_id):
         self.input_cost = None
@@ -22,9 +19,6 @@ class PrettyPrintModel():
         self.get_price()
 
     def get_price(self):
-        """Class representing a person"""
-
-        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
         # Refer to https://aws.amazon.com/bedrock/pricing/ for most up to date pricing
         # Price provides as example
         price_map = {
@@ -38,10 +32,10 @@ class PrettyPrintModel():
         self.raw_output_cost = price_map[self.model]['output'] * \
             self.output_tokens * 1000
         # Cost of token mulitplyied by 1000 similar record size patients
-        self.input_cost = locale.currency(price_map[self.model]['input'] *
-                                          self.input_tokens * 1000)
-        self.output_cost = locale.currency(price_map[self.model]['output'] *
-                                           self.output_tokens * 1000)
+        self.input_cost = '${:,.2f}'.format(price_map[self.model]['input'] *
+                                            self.input_tokens * 1000)
+        self.output_cost = '${:,.2f}'.format(price_map[self.model]['output'] *
+                                             self.output_tokens * 1000)
 
     def __repr__(self) -> str:
         return self.__str__()

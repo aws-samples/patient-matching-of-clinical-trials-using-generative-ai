@@ -37,6 +37,6 @@ six==1.16.0
 stack-data==0.6.3
 tornado==6.4.1
 traitlets==5.14.2
-urllib3==2.2.1
+urllib3==2.2.2
 wcwidth==0.2.13
 widgetsnbextension==4.0.10

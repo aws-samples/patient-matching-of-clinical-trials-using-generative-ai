@@ -2,7 +2,7 @@
 
 This is a demo of how to leverage Generative AI to perform cohort identification by matching patients to clinical trials.
 
-Clinical Trials Gen AI workshop Part 1.ipynb contains a Jupyter notebook file that walks through step-by-step how to use Amazon Bedrock and Large Language Models (LLM) to solve a real-world problem described in the User persona below. Clinical Trials Gen AI workshop Part 2.ipynb is a continuation of Part 1, where we will move the use-case closer to production by focusing on evaluation logic, chaining LLMs and cost analysis.
+Clinical Trials Gen AI workshop Part 1.ipynb contains a Jupyter notebook file that walks through step-by-step how to use Amazon Bedrock and Large Language Models (LLM) to solve a real-world problem described in the User persona below. Clinical Trials Gen AI workshop Part 2.ipynb is a continuation of Part 1, where we will move the use-case closer to production by focusing on evaluation logic, chaining LLMs and cost analysis. Clinical Trials Gen AI Part 3.ipynb located inside the Part 3 folder is a continuation of Part 1 where we leverage batch inferencing to perform clinical trial patient matching at scale in conjuction with an EHR system.
 
 ### User persona
 
@@ -20,7 +20,8 @@ The notebook requires multiple resources to be enabled or created.
 
 - Ensure [access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) to Anthropic models.
 - Ensure proper IAM permission to [invoke models](https://docs.aws.amazon.com/step-functions/latest/dg/bedrock-iam.html#bedrock-policy-invokemodel-full-access) and [subscribe](https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html#security_iam_id-based-policy-examples-subscription) to 3rd party models.
-- Creation of [Amazon Healthlake](https://docs.aws.amazon.com/healthlake/latest/devguide/getting-started.html#setting-up-iam-amazon-healthlake) with Synthea data enabled and FHIR API permission enabled - (**Optional**)
+- A IAM role which may need to be created is required to use Bedrock Batch Inferencing in Part 3. Details are explained in the jupyter notebook where required.
+- Creation of [Amazon Healthlake](https://docs.aws.amazon.com/healthlake/latest/devguide/getting-started.html#setting-up-iam-amazon-healthlake) with Synthea data enabled and FHIR API permission enabled - (**Optional for part 1 and 2, required for part 3**)
 
 ### Environment
 

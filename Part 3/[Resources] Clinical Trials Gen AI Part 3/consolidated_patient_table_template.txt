@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Information</title>
+    <style>
+        body, html {{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }}
+        .main-container {{
+            display: flex;
+            height: 100vh;
+            transition: margin-right 0.3s;
+        }}
+        .table-container {{
+            flex: 1;
+            overflow: auto;
+            min-width: 0;
+            transition: width 0.3s;
+        }}
+        .side-panel {{
+            width: 0;
+            background-color: #f1f1f1;
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s;
+            position: relative;
+        }}
+        .resize-handle {{
+            width: 8px;
+            background-color: transparent;
+            cursor: col-resize;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -4px;
+            z-index: 20;
+        }}
+        .resize-handle:hover {{
+            background-color: rgba(0, 0, 0, 0.1);
+        }}
+        .side-panel-header {{
+            position: sticky;
+            top: 0;
+            background-color: #f1f1f1;
+            padding: 20px;
+            z-index: 2;
+            border-bottom: 1px solid #ddd;
+        }}
+        .side-panel-content {{
+            flex-grow: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0 20px 20px 20px;
+        }}
+        .close-btn {{
+            position: sticky;
+            top: 10px;
+            float: right;
+            font-size: 36px;
+            cursor: pointer;
+        }}
+        table {{
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }}
+        th, td {{
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }}
+        th {{
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }}
+        .sticky-col {{
+            position: sticky;
+            background-color: #f2f2f2;
+            z-index: 5;
+        }}
+        .sticky-col.header {{
+            z-index: 11;
+        }}
+        th:first-child, td:first-child {{
+            left: 0;
+        }}
+        th:nth-child(2), td:nth-child(2) {{
+            left: 40px;
+        }}
+        .patient-id {{
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }}
+        .patient-info-container {{
+            overflow-x: auto;
+            white-space: nowrap;
+        }}
+        #patientInfo {{
+            display: inline-block;
+            white-space: pre;
+            font-family: monospace;
+        }}
+        .horizontal-scroll {{
+            overflow-x: scroll;
+            overflow-y: hidden;
+            height: 12px;
+            background-color: #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }}
+        .horizontal-scroll::-webkit-scrollbar {{
+            height: 12px;
+        }}
+        .horizontal-scroll::-webkit-scrollbar-thumb {{
+            background-color: #888;
+            border-radius: 6px;
+        }}
+        .horizontal-scroll::-webkit-scrollbar-track {{
+            background-color: #ddd;
+            height: 5px !important;
+        }}
+        .scroll-content {{
+            height: 1px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="sticky-col header" style="min-width: 40px;">#</th>
+                        <th class="sticky-col header" style="min-width: 100px;">patient_id</th>
+                        {table_headers}
+                    </tr>
+                </thead>
+                <tbody>
+                    {table_rows}
+                </tbody>
+            </table>
+        </div>
+        <div id="sidePanelContainer" class="side-panel">
+            <div id="resizeHandle" class="resize-handle"></div>
+            <div class="side-panel-header">
+                <span class="close-btn" onclick="closeNav()">&times;</span>
+                <h2>Patient Information</h2>
+            </div>
+            <div class="horizontal-scroll">
+                <div class="scroll-content"></div>
+            </div>
+            <div class="side-panel-content">
+                <div class="patient-info-container">
+                    <pre id="patientInfo"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const patientInfoMap = {patient_info_json};
+        const mainContainer = document.querySelector('.main-container');
+        const tableContainer = document.querySelector('.table-container');
+        const sidePanel = document.getElementById("sidePanelContainer");
+        const resizeHandle = document.getElementById('resizeHandle');
+        const horizontalScroll = document.querySelector('.horizontal-scroll');
+        const patientInfoContainer = document.querySelector('.patient-info-container');
+        const scrollContent = document.querySelector('.scroll-content');
+        const patientInfoElement = document.getElementById("patientInfo");
+        
+        let isResizing = false;
+        let startX;
+        let startWidth;
+
+        function showPatientInfo(patientId) {{
+            if (patientInfoMap[patientId]) {{
+                let patientData = JSON.parse(patientInfoMap[patientId]);
+                let formattedInfo = JSON.stringify(patientData, null, 4);
+                patientInfoElement.textContent = formattedInfo;
+                sidePanel.style.width = "400px";
+                updateScrollContent();
+            }} else {{
+                patientInfoElement.textContent = "No information available for this patient.";
+                sidePanel.style.width = "400px";
+            }}
+        }}
+
+        function closeNav() {{
+            sidePanel.style.width = "0";
+        }}
+
+        function updateScrollContent() {{
+            requestAnimationFrame(() => {{
+                scrollContent.style.width = `${{patientInfoElement.scrollWidth}}px`;
+            }});
+        }}
+
+        resizeHandle.addEventListener('mousedown', function(e) {{
+            isResizing = true;
+            startX = e.pageX;
+            startWidth = parseInt(document.defaultView.getComputedStyle(sidePanel).width, 10);
+            
+            document.documentElement.style.cursor = 'col-resize';
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('mouseup', stopResize);
+            e.preventDefault();
+        }});
+
+        function resize(e) {{
+            if (!isResizing) return;
+            
+            const width = startWidth - (e.pageX - startX);
+            const minWidth = 200;
+            const maxWidth = window.innerWidth - 400;
+            
+            if (width >= minWidth && width <= maxWidth) {{
+                sidePanel.style.width = width + 'px';
+                updateScrollContent();
+            }}
+        }}
+
+        function stopResize() {{
+            isResizing = false;
+            document.documentElement.style.cursor = '';
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('mouseup', stopResize);
+        }}
+
+        horizontalScroll.addEventListener('scroll', () => {{
+            patientInfoContainer.scrollLeft = horizontalScroll.scrollLeft;
+        }});
+
+        patientInfoContainer.addEventListener('scroll', () => {{
+            horizontalScroll.scrollLeft = patientInfoContainer.scrollLeft;
+        }});
+
+        // Refresh scroll content width on window resize
+        window.addEventListener('resize', updateScrollContent);
+    </script>
+</body>
+</html>

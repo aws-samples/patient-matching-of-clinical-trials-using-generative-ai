@@ -21,7 +21,7 @@ The notebook requires multiple resources to be enabled or created.
 - Ensure [access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) to Anthropic models.
 - Ensure proper IAM permission to [invoke models](https://docs.aws.amazon.com/step-functions/latest/dg/bedrock-iam.html#bedrock-policy-invokemodel-full-access) and [subscribe](https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html#security_iam_id-based-policy-examples-subscription) to 3rd party models.
 - A IAM role which may need to be created is required to use Bedrock Batch Inferencing in Part 3. Details are explained in the jupyter notebook where required.
-- Creation of [Amazon Healthlake](https://docs.aws.amazon.com/healthlake/latest/devguide/getting-started.html#setting-up-iam-amazon-healthlake) with Synthea data enabled and FHIR API permission enabled - (**Optional for part 1 and 2, required for part 3**)
+- Creation of [Amazon Healthlake](https://docs.aws.amazon.com/healthlake/latest/devguide/getting-started.html#setting-up-iam-amazon-healthlake) with Synthea data enabled and FHIR API permission enabled - (**Optional for part 1 and 2, highly encouraged for part 3**)
 
 ### Environment
 

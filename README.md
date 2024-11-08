@@ -14,6 +14,10 @@ If your assignment succeeds, this feature will be added to AnyCompany's next big
 
 The clock is ticking, so let's start building!
 
+## Video Walkthrough
+
+https://github.com/user-attachments/assets/8c7bd7bc-7236-45c1-8bc5-3b04ac93dacd
+
 ## Prerequisites
 
 The notebook requires multiple resources to be enabled or created.
